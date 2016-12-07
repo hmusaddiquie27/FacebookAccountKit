@@ -6,7 +6,16 @@
 //
 //
 
-#import "FacebookAccountKitLogin.h"
+#import <Cordova/CDV.h>
+#import <AccountKit/AccountKit.h>
+
+@interface FacebookAccountKitLogin : CDVPlugin <AKFViewControllerDelegate>
+
+-(void)mobileLogin:(CDVInvokedUrlCommand*)command;
+
+-(void)emailLogin:(CDVInvokedUrlCommand*)command;
+
+@end
 
 @implementation FacebookAccountKitLogin {
     AKFAccountKit *accountKit;

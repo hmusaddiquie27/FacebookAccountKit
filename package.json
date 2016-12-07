@@ -1,6 +1,6 @@
 {
-  "name": "FacebookAccountKitLogin",
-  "version": "0.0.1",
+  "name": "cordova-plugin-facebook-account-kit",
+  "version": "0.0.6",
   "description": "Facebook Account Kit Login Plugin - Allows email and mobile logins using Facebook Account Kit",
   "cordova": {
     "id": "cordova-plugin-facebook-account-kit",
@@ -13,11 +13,17 @@
     "url": "git+https://github.com/Mhusain/FacebookAccountKit.git"
   },
   "keywords": [
+    "cordova",
+    "facebook",
+    "account",
+    "kit",
+    "login",
     "ecosystem:cordova",
-    "cordova-ios"
+    "cordova-ios",
+    "facebook-account-kit"
   ],
   "author": "MHusain",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Mhusain/FacebookAccountKit/issues"
   },
