@@ -1,12 +1,12 @@
 # cordova-plugin-facebook-account-kit
 
-> Use Facebook Account Kit in Cordova projects only in iOS for now
+> Use Facebook Account Kit Login in Cordova projects in iOS & Android
 
 ## Installation
 
 See npm package for versions - https://github.com/Mhusain/FacebookAccountKit
 
-Make sure you've registered your Facebook app with Facebook and have an `APP_ID` [https://developers.facebook.com/apps](https://developers.facebook.com/apps).
+Make sure you've registered your Facebook app with Facebook and have an `APP_ID` and `AccountKitClientToken` [https://developers.facebook.com/apps](https://developers.facebook.com/apps).
 
 ```bash
 $ cordova plugin add cordova-plugin-facebook-account-kit --save --variable APP_ID="123456789" --variable APP_NAME="myApplication" --variable AK_TOKEN="AccountKitClientToken"

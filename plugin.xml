@@ -1,46 +1,38 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-facebook-account-kit" version="0.0.6" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-facebook-account-kit" version="0.0.8" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>FacebookAccountKitLogin</name>
     <description>
         Facebook Account Kit Login Plugin - Allows email and mobile logins using Facebook Account Kit.
         Docs: https://github.com/Mhusain/FacebookAccountKit
     </description>
-    
     <license>Apache 2.0</license>
-    
     <preference name="APP_ID" />
     <preference name="APP_NAME" />
     <preference name="AK_TOKEN" />
-    
     <APP_ID>123456789</APP_ID>
     <APP_NAME>myApplication</APP_NAME>
     <AK_TOKEN>AccountKitClientToken</AK_TOKEN>
     <js-module name="FacebookAccountKitLogin" src="www/FacebookAccountKitLogin.js">
         <clobbers target="FacebookAccountKit" />
     </js-module>
+    <!-- ios configuration starts-->
     <platform name="ios">
-        
         <config-file parent="/*" target="config.xml">
             <feature name="FacebookAccountKitLogin">
-                <param name="ios-package" value="FacebookAccountKitLogin" onload="true" />
+                <param name="ios-package" onload="true" value="FacebookAccountKitLogin" />
             </feature>
         </config-file>
-        
         <source-file src="src/ios/FacebookAccountKitLogin.m" />
-        
-        <config-file target="*-Info.plist" parent="FacebookAppID">
+        <config-file parent="FacebookAppID" target="*-Info.plist">
             <string>$APP_ID</string>
         </config-file>
-        
-        <config-file target="*-Info.plist" parent="AccountKitClientToken">
+        <config-file parent="AccountKitClientToken" target="*-Info.plist">
             <string>$AK_TOKEN</string>
         </config-file>
-        
-        <config-file target="*-Info.plist" parent="FacebookDisplayName">
+        <config-file parent="FacebookDisplayName" target="*-Info.plist">
             <string>$APP_NAME</string>
         </config-file>
-        
-        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+        <config-file parent="CFBundleURLTypes" target="*-Info.plist">
             <array>
                 <dict>
                     <key>CFBundleURLSchemes</key>
@@ -50,10 +42,33 @@
                 </dict>
             </array>
         </config-file>
-        
-        <!-- Account kit framework -->
-        <framework src="src/ios/AccountKit.framework" custom="true" />
-        <framework src="src/ios/AccountKitStrings.bundle" custom="true" />
-        
+        <!-- account kit framework-->
+        <framework custom="true" src="src/ios/AccountKit.framework" />
+        <framework custom="true" src="src/ios/AccountKitStrings.bundle" />
     </platform>
+    <!-- ios configuration ends-->
+    <!-- android configuration starts-->
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="FacebookAccountKitLogin">
+                <param name="android-package" value="cordova-plugin-facebook-account-kit.FacebookAccountKitLogin" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/FacebookAccountKitLogin.xml" target-dir="res/values" />
+        <config-file parent="/*" target="res/values/FacebookAccountKitLogin.xml">
+            <string name="fbak_app_id">$APP_ID</string>
+            <string name="fbak_app_name">$APP_NAME</string>
+            <string name="fbak_app_ak_token">$AK_TOKEN</string>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <meta-data android:name="com.facebook.accountkit.ApplicationName" android:value="@string/fbak_app_name" />
+            <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/fbak_app_id" />
+            <meta-data android:name="com.facebook.accountkit.ClientToken" android:value="@string/fbak_app_ak_token" />
+            <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled" android:value="false"/>
+        </config-file>
+        <source-file src="src/android/FacebookAccountKitLogin.java" target-dir="src/cordova-plugin-facebook-account-kit/FacebookAccountKitLogin" />
+        <!-- account kit framework-->
+        <framework src="com.facebook.android:account-kit-sdk:4.+"/>
+    </platform>
+    <!-- android configuration ends-->
 </plugin>
