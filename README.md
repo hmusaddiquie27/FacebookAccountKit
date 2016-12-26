@@ -32,8 +32,8 @@ If you need to change your `APP_ID`, `APP_NAME`, or `AK_TOKEN` after installatio
 `public void onCreate(Bundle savedInstanceState)`
 `{`
     `super.onCreate(savedInstanceState);`
-
-    `AccountKit.initialize(getApplicationContext());//Account Kit initialization`
+    `//Account Kit initialization`
+    `AccountKit.initialize(getApplicationContext());`
 `}`
 
 ## Usage
