@@ -28,13 +28,13 @@ If you need to change your `APP_ID`, `APP_NAME`, or `AK_TOKEN` after installatio
 
 `Add below line of code to initialize Facebook Account Kit`
 
-`@Override
-public void onCreate(Bundle savedInstanceState)
-{
-    super.onCreate(savedInstanceState);
+`@Override`
+`public void onCreate(Bundle savedInstanceState)`
+`{`
+    `super.onCreate(savedInstanceState);`
 
-    AccountKit.initialize(getApplicationContext());//Account Kit initialization
-}`
+    `AccountKit.initialize(getApplicationContext());//Account Kit initialization`
+`}`
 
 ## Usage
 
