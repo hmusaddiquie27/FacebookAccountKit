@@ -1,40 +1,28 @@
-package cordova-plugin-facebook-account-kit;
+package org.apache.cordova.FacebookAccountKit;
 
+import android.content.Intent;
+import com.facebook.accountkit.AccessToken;
 import com.facebook.accountkit.AccountKit;
+import com.facebook.accountkit.AccountKitCallback;
 import com.facebook.accountkit.AccountKitError;
+import com.facebook.accountkit.AccountKitLoginResult;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
-import com.facebook.accountkit.AccountKitCallback;
-import com.facebook.accountkit.AccountKitLoginResult;
-import com.facebook.accountkit.AccessToken;
-import android.content.Intent;
-
-import org.json.JSONObject;
-import org.json.JSONException;
-import org.apache.cordova.PluginResult;
-
-import android.accounts.Account;
-import android.util.Log;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
-import org.apache.cordova.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class echoes a string called from JavaScript.
  */
 public class FacebookAccountKitLogin extends CordovaPlugin {
-
+    
     public static int APP_REQUEST_CODE = 99;
     private CallbackContext cbContext = null;
-    
-    @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-        AccountKit.initialize(cordova.getActivity().getApplicationContext());
-    }
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
