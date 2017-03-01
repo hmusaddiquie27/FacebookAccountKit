@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-facebook-account-kit" version="0.1.4" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-facebook-account-kit" version="0.1.6" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>FacebookAccountKitLogin</name>
     <description>
-        Facebook Account Kit Login Plugin - Allows email and mobile logins using Facebook Account Kit.
+        Facebook Account Kit Login Plugin - Allows email and mobile logins using Facebook Account Kit. Now with background colors customization also available.
         Docs: https://github.com/Mhusain/FacebookAccountKit
     </description>
     <license>Apache 2.0</license>
@@ -59,13 +59,32 @@
             <string name="fbak_app_id">$APP_ID</string>
             <string name="fbak_app_name">$APP_NAME</string>
             <string name="fbak_app_ak_token">$AK_TOKEN</string>
+            <style name="AccountKitLoginTheme" parent="Theme.AccountKit">
+                <item name="com_accountkit_background_color">#EEF6FF</item>
+                <item name="com_accountkit_button_background_color">#96BDEB</item>
+                <item name="com_accountkit_button_disabled_background_color">#96BDEB</item>
+                <item name="com_accountkit_button_border_color">#96BDEB</item>
+                <item name="com_accountkit_button_text_color">#ffffff</item>
+                <item name="com_accountkit_header_background_color">#96BDEB</item>
+                <item name="com_accountkit_header_text_color">#ffffff</item>
+                <item name="com_accountkit_input_background_color">#EEF6FF</item>
+                <item name="com_accountkit_input_border_color">#96BDEB</item>
+                <item name="com_accountkit_input_text_color">#da4a11</item>
+                <item name="com_accountkit_text_color">#da4a11</item>
+                <item name="com_accountkit_title_text_color">#da4a11</item>
+            </style>
         </config-file>
         <config-file parent="application" target="AndroidManifest.xml">
             <meta-data android:name="com.facebook.accountkit.ApplicationName" android:value="@string/fbak_app_name" />
             <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/fbak_app_id" />
             <meta-data android:name="com.facebook.accountkit.ClientToken" android:value="@string/fbak_app_ak_token" />
             <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled" android:value="false"/>
+            <activity android:name="com.facebook.accountkit.ui.AccountKitActivity" tools:replace="android:theme" android:theme="@style/AccountKitLoginTheme">
+            </activity>
         </config-file>
+        <edit-config file="AndroidManifest.xml" target="/manifest" mode="merge">
+            <manifest xmlns:tools="http://schemas.android.com/tools" />
+        </edit-config>
         <source-file src="src/android/FacebookAccountKitLogin.java" target-dir="src/org/apache/cordova/FacebookAccountKit" />
         <!-- account kit framework-->
         <framework src="com.facebook.android:account-kit-sdk:4.+"/>

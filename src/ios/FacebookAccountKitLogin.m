@@ -32,7 +32,8 @@
         // may also specify AKFResponseTypeAccessToken
         accountKit = [[AKFAccountKit alloc] initWithResponseType:AKFResponseTypeAccessToken];
     }
-    
+    //access theme colors here
+    NSDictionary *theme = command.arguments.count > 0 ? command.arguments[0] : nil;
     // view controller for resuming login
     pendingLoginViewController = [accountKit viewControllerForLoginResume];
     
@@ -42,7 +43,7 @@
     
     viewController.enableSendToFacebook = YES; // defaults to NO
     
-    [self prepareLoginViewController:viewController]; // see below
+    [self prepareLoginViewController:viewController withTheme:theme]; // see below
     
     [self.viewController presentViewController:viewController animated:YES completion:nil];
 }
@@ -55,7 +56,8 @@
         // may also specify AKFResponseTypeAccessToken
         accountKit = [[AKFAccountKit alloc] initWithResponseType:AKFResponseTypeAccessToken];
     }
-    
+    //access theme colors here
+    NSDictionary *theme = command.arguments.count > 0 ? command.arguments[0] : nil;
     // view controller for resuming login
     pendingLoginViewController = [accountKit viewControllerForLoginResume];
     
@@ -65,17 +67,68 @@
     
     viewController.enableSendToFacebook = YES; // defaults to NO
     
-    [self prepareLoginViewController:viewController]; // see below
+    [self prepareLoginViewController:viewController withTheme:theme]; // see below
     
     [self.viewController presentViewController:viewController animated:YES completion:nil];
 }
 
-- (void)prepareLoginViewController:(UIViewController<AKFViewController> *)loginViewController
+- (void)prepareLoginViewController:(UIViewController<AKFViewController> *)loginViewController withTheme:(NSDictionary *)themeInfo
 {
     loginViewController.delegate = self;
-    // Optionally, you may use the Advanced UI Manager or set a theme to customize the UI.
-    //    loginViewController.advancedUIManager = _advancedUIManager;
-    //    loginViewController.theme = [Themes bicycleTheme];
+    //set a theme to customize the UI.
+    if (themeInfo) {
+        AKFTheme *theme = [AKFTheme defaultTheme];
+        theme.backgroundColor = [self colorWithRGBHexValue:themeInfo[@"backgroundColor"]];
+        theme.buttonBackgroundColor = [self colorWithRGBHexValue:themeInfo[@"buttonBackgroundColor"]];
+        theme.buttonBorderColor = [self colorWithRGBHexValue:themeInfo[@"buttonBorderColor"]];
+        theme.buttonTextColor = [self colorWithRGBHexValue:themeInfo[@"buttonTextColor"]];
+        theme.headerBackgroundColor = [self colorWithRGBHexValue:themeInfo[@"headerBackgroundColor"]];
+        theme.headerTextColor = [self colorWithRGBHexValue:themeInfo[@"headerTextColor"]];
+        theme.iconColor = [self colorWithRGBHexValue:themeInfo[@"iconColor"]];
+        theme.inputBackgroundColor = [self colorWithRGBHexValue:themeInfo[@"inputBackgroundColor"]];
+        theme.inputBorderColor = [self colorWithRGBHexValue:themeInfo[@"inputBorderColor"]];
+        theme.inputTextColor = [self colorWithRGBHexValue:themeInfo[@"inputTextColor"]];
+        theme.textColor = [self colorWithRGBHexValue:themeInfo[@"textColor"]];
+        theme.titleColor = [self colorWithRGBHexValue:themeInfo[@"titleColor"]];
+        theme.statusBarStyle = UIStatusBarStyleDefault;
+        loginViewController.theme = theme;
+    }
+}
+
+
+- (UIColor *)colorWithRGBHexValue:(NSString *)hexValue {
+    NSString *cString = [[hexValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0];
 }
 
 #pragma mark - AKFViewControllerDelegate;
