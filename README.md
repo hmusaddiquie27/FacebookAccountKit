@@ -1,6 +1,3 @@
-
-![alt cordova-plugin-facebook-account-kit](http://stores.dotsquares.com/skin/frontend/default/dsstore/images/ds-store-logo.png)
-
 # cordova-plugin-facebook-account-kit
 
 > Use Facebook Account Kit Login in Apache Cordova projects in iOS & Android. Now with background colors customization also available.
@@ -111,4 +108,6 @@ mobile: "<mobile>"
 `</style>`
 
 you will find above style in file res/values/FacebookAccountKitLogin.xml. Change these colors accordingly.
+
+### Note: Please feel free to fork and raise a PR for the new features. Also, let me know if someone having issues forking from this repository.
 
